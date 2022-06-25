@@ -1,0 +1,1 @@
+-Dispatch: component directives https://svelte.dev/docs#template-syntax-component-directives-on-eventname
