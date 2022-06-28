@@ -1,4 +1,5 @@
 <script>
+    import PollStore from "../stores/PollStore";
     import { createEventDispatcher } from "svelte";
     import Button from "../../src/shared/Button.svelte";
 
@@ -8,7 +9,7 @@
     let validValue = false;
 
     const submitHandler = () => {
-        console.log(customFields);
+        // console.log(customFields);
         validValue = true;
         if (customFields.question.trim().length < 5) {
             validValue = false;
@@ -31,14 +32,18 @@
         }
 
         if (validValue) {
-            console.log("value", customFields);
+            // console.log("value", customFields);
             let poll = {
                 ...customFields,
                 voteA: 0,
                 voteB: 0,
                 id: Math.random(),
             };
-            dispatch("submitPollForm", poll);
+            // Save poll to store
+            PollStore.update((current_poll) => {
+                return [poll, ...current_poll];
+            });
+            dispatch("submitPollForm");
         }
     };
 </script>

@@ -19,30 +19,9 @@
   let polls = [];
 
   const submitPollForm = (e) => {
-    const poll = {};
-    poll.id = e.detail.id;
-    poll.question = e.detail.question;
-    poll.answerA = e.detail.answerA;
-    poll.answerB = e.detail.answerB;
-    poll.voteA = e.detail.voteA;
-    poll.voteB = e.detail.voteB;
-    polls = [poll, ...polls];
-    console.log(polls);
     activeItem = "Current Polls";
   };
 
-  const handleVote = (e) => {
-    const { id, option } = e.detail;
-    
-    let copiedPoll = [...polls];
-    let updatePoll = copiedPoll.find(poll => poll.id == id);
-    if (option === "a") {
-      updatePoll.voteA++;
-    } else {
-      updatePoll.voteB++;
-    }
-    polls = copiedPoll
-  };
 </script>
 
 <Header />
@@ -50,7 +29,7 @@
   <!-- Tabs component dispatch event 'tabChange' to this file -->
   <Tabs {activeItem} {items} on:tabChange={tabChange} />
   {#if activeItem === "Current Polls"}
-    <PollList {polls} on:vote={handleVote} />
+    <PollList />
   {:else if activeItem === "Add New Poll"}
     <CreatePollForm on:submitPollForm={submitPollForm} />
   {/if}

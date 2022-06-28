@@ -1,1 +1,5 @@
--Dispatch: component directives https://svelte.dev/docs#template-syntax-component-directives-on-eventname
+- Dispatch: component directives https://svelte.dev/docs#template-syntax-component-directives-on-eventname
+- Writable: https://svelte.dev/docs#run-time-svelte-store-writable
+- Life cycle: https://svelte.dev/docs#run-time-svelte-onmount
+- Component: PollStore
+Sử dụng trong component khác trong if, foreach...: $PollStore
