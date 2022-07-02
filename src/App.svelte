@@ -21,7 +21,6 @@
   const submitPollForm = (e) => {
     activeItem = "Current Polls";
   };
-
 </script>
 
 <Header />

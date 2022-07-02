@@ -1,13 +1,19 @@
 <script>
-    import { createEventDispatcher } from "svelte";
     import Card from "../shared/Card.svelte";
     import PollStore from "../../src/stores/PollStore";
+    import Button from "../../src/shared/Button.svelte";
+    import { tweened } from "svelte/motion";
 
-    const dispatch = createEventDispatcher();
     // let poll;
     $: total_vote = poll.voteA + poll.voteB;
-    $: percentA = Math.floor((100 / total_vote) * poll.voteA);
-    $: percentB = Math.floor((100 / total_vote) * poll.voteB);
+    $: percentA = Math.floor((100 / total_vote) * poll.voteA) || 0;
+    $: percentB = Math.floor((100 / total_vote) * poll.voteB) || 0;
+
+    // tweened percent
+    const tweenedA = tweened(0);
+    const tweenedB = tweened(0);
+    $: tweenedA.set(percentA);
+    $: tweenedB.set(percentB);
 
     const handleVote = (option, id) => {
         PollStore.update((current_poll) => {
@@ -18,7 +24,13 @@
             } else {
                 updatePoll.voteB++;
             }
-            return copiedPoll
+            return copiedPoll;
+        });
+    };
+
+    const handleDel = (id) => {
+        PollStore.update((current_poll) => {
+            return current_poll.filter((poll) => poll.id != id);
         });
     };
 
@@ -30,12 +42,15 @@
         <h3>{poll.question}</h3>
         <p>Total Vote: {total_vote}</p>
         <div class="answer" on:click={() => handleVote("a", poll.id)}>
-            <div class="percent percent-a" style:width="{percentA}%" />
+            <div class="percent percent-a" style:width="{$tweenedA}%" />
             <span>{poll.answerA} ({poll.voteA})</span>
         </div>
         <div class="answer" on:click={() => handleVote("b", poll.id)}>
-            <div class="percent percent-b" style:width="{percentB}%" />
+            <div class="percent percent-b" style:width="{$tweenedB}%" />
             <span>{poll.answerB} ({poll.voteB})</span>
+        </div>
+        <div class="delete">
+            <Button flat={true} on:click={() => handleDel(poll.id)}>Del</Button>
         </div>
     </div>
 </Card>
@@ -76,5 +91,10 @@
     .percent-b {
         border-left: 4px solid #45c496;
         background: rgba(69, 196, 150, 0.2);
+    }
+    .delete {
+        margin-top: 30px;
+        float: right;
+        text-align: center;
     }
 </style>

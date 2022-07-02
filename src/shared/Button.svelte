@@ -6,7 +6,7 @@
     export { type_btn, flat, inverse };
 </script>
 
-<button class={class_name} class:flat class:inverse>
+<button class={class_name} class:flat class:inverse on:click>
     <slot />
 </button>
 

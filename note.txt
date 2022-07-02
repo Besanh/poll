@@ -3,3 +3,9 @@
 - Life cycle: https://svelte.dev/docs#run-time-svelte-onmount
 - Component: PollStore
 Sử dụng trong component khác trong if, foreach...: $PollStore
+- Transition: https://svelte.dev/docs#template-syntax-element-directives-transition-fn
+- in/out: https://svelte.dev/docs#template-syntax-element-directives-transition-fn
+- Animation: https://svelte.dev/docs#run-time-svelte-animate-flip
+- Motion: https://svelte.dev/docs#run-time-svelte-motion
+- $: mark statement reactive
+https://svelte.dev/docs#component-format-script-3-$-marks-a-statement-as-reactive
